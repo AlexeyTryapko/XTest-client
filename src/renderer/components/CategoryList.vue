@@ -38,8 +38,9 @@ export default {
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-    width: 300px;
-    height: 250px;
+    padding: 15px;
+    min-width: 250px;
+    height: 220px;
     background-color: #00BCD4;
     border-radius: 10px;
   }

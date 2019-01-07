@@ -2,7 +2,7 @@
 <div class="card">
     <h1 class="card-title">
         <router-link :to="{ name: 'Code', params: { id: code['.key'] } }">
-          {{ code }}
+          <p style="color: black"> {{  code  }}</p>
         </router-link>
     </h1>
 </div>
@@ -13,7 +13,7 @@ export default {
   props: {
     code: {
       required: true,
-      type: Object,
+      type: String,
     }
   },
 }

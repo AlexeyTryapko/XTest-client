@@ -28,14 +28,9 @@ export default {
     }
   },
   created() {
-    axios.get(`http://localhost:9090/${this.category['.key']}`, {
-      headers: {
-        headers: {"Access-Control-Allow-Origin": "*"}
-      }
-    })
+    axios.get(`http://localhost:9090/${this.category['.key']}`)
       .then(response => {
-        this.codes = response.data;
-        console.log(response);
+        this.codes = response.data.codes;
       })
       .catch(error => {
         // handle error
