@@ -1,0 +1,20 @@
+{
+  "categories": {
+    "0": {
+      ".key": "systematics",
+      "title": "Систематичні"
+    },
+    "1": {
+      ".key": "cyclics",
+      "title": "Циклічні"
+    },
+    "2": {
+      ".key": "nonbinary",
+      "title": "Не двоїчні"
+    },
+    "3": {
+      ".key": "others",
+      "title": "Інші"
+    }
+  }
+}
