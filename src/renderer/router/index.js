@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../pages/PageHome'
 import Codes from '../pages/CodesPage'
-import PageCodeInfo from '../pages/PageCodeInfo'
+import Info from '../pages/PageCodeInfo'
 
 Vue.use(Router)
 
@@ -19,9 +19,9 @@ export default new Router({
       props: true,
     },
     {
-      path: '/info/',
-      name: 'InfoCode',
-      component: PageCodeInfo,
+      path: '/info/:id',
+      name: 'Info',
+      component: Info,
       props: true,
     },
     {

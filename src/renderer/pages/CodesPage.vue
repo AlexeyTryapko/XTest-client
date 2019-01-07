@@ -28,12 +28,14 @@ export default {
     }
   },
   created() {
-    axios.get(`http://localhost:9090/${this.category['.key']}`)
+      axios.get(`http://localhost:9090/${this.category['.key']}`)
       .then(response => {
-        this.codes = response.data.codes;
+        const codesObj = response.data.codes;
+        for(const codeField in codesObj) {
+          this.codes.push({[codeField]: codesObj[codeField]})
+        }
       })
       .catch(error => {
-        // handle error
         console.log(error);
       });
   },
@@ -41,7 +43,7 @@ export default {
     return {
       category: Object.values(sourceData.categories)
         .filter(category => category['.key'] === this.id)[0],
-      codes: [],
+      codes: []
     }
   },
 }
