@@ -5,7 +5,12 @@
   </div>
   <div class="footer-btn">
     <md-button class="md-raised md-primary">
-      <p>Пройти Тест</p>
+      <router-link :to="{ name: 'EncodePage', params: { id: id } }">
+        <p style="color: black">Пройти тест кодування</p>
+      </router-link>
+    </md-button>
+    <md-button class="md-raised md-primary">
+      <p>Пройти тест декодування</p>
     </md-button>
     <md-button class="md-big md-raised md-primary" href="/">
       <p>На головну</p>
@@ -31,17 +36,17 @@ export default {
   },
   created() {
     axios.post('http://localhost:9090/codedetails', {
-      module_name: this.id
-    })
-  .then(response => {
-    this.template = response.data.description;
-    console.log(response);
-  })
-  .catch(error => {
-    // handle error
-    console.log(error);
-  });
-},
+        module_name: this.id
+      })
+      .then(response => {
+        this.template = response.data.description;
+        console.log(response);
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
+  },
 }
 </script>
 
