@@ -6,7 +6,7 @@
     <h1 class="md-display-4">XTest</h1>
   </header>
   <main class="md-layout md-alignment-center-center">
-    <CategoryList :categories="categories"/>
+    <CategoryList :categories="categories" />
   </main>
 </div>
 </template>
@@ -24,46 +24,66 @@ export default {
   },
   data() {
     return {
-      categories: Object.values(sourceData.categories),
+      lang: "ua",
+      categories: Object.values(sourceData["ua"].categories),
     }
   },
-
+  watch: {
+    // call again the method if the route changes
+    '$route': 'checkLang'
+  },
   methods: {
+    checkLang(){
+      axios.get('http://localhost:9090/getlang')
+        .then(response => {
+          console.log('Main page')
+          this.category = Object.values(sourceData[response.data.language].categories);
+          this.lang = response.data.language;
+          console.log(response);
+        })
+        .catch(error => {
+          // handle error
+          console.log(error);
+        });
+    },
     ENLang() {
       axios.post('http://127.0.0.1:9090/lang', {
-      "lang": "en"
-      })
-      .then(response => {
-      this.view = response.data.view;
-      console.log(response);
-      })
-    .catch(error => {
-      // handle error
-      console.log(error);
-      });
+          "lang": "en"
+        })
+        .then(response => {
+          this.view = response.data.view;
+          this.lang = "en";
+          this.categories = Object.values(sourceData["en"].categories);
+          console.log(response);
+        })
+        .catch(error => {
+          // handle error
+          console.log(error);
+        });
     },
 
     UALang() {
       axios.post('http://127.0.0.1:9090/lang', {
-      "lang": "ua"
-      })
-      .then(response => {
-      this.view = response.data.view;
-      console.log(response);
-      })
-    .catch(error => {
-      // handle error
-      console.log(error);
-      });
+          "lang": "ua"
+        })
+        .then(response => {
+          this.view = response.data.view;
+          this.lang = "ua";
+          this.categories = Object.values(sourceData["ua"].categories);
+          console.log(response);
+        })
+        .catch(error => {
+          // handle error
+          console.log(error);
+        });
     }
   }
 }
 </script>
 <style scoped>
-.lang-sw{
+.lang-sw {
   border: 1px solid black;
   border-radius: 5px;
   background-color: burlywood;
 }
 </style>
-

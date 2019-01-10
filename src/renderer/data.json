@@ -1,20 +1,51 @@
 {
-  "categories": {
-    "0": {
-      ".key": "systematics",
-      "title": "Систематичні"
-    },
-    "1": {
-      ".key": "cyclics",
-      "title": "Циклічні"
-    },
-    "2": {
-      ".key": "nonbinary",
-      "title": "Не двоїчні"
-    },
-    "3": {
-      ".key": "others",
-      "title": "Інші"
+  "en":{
+    "toHome":"Home",
+		"showTheory": "Show theory",
+		"startEncodeTest":"Start encode test",
+		"startDecodeTest":"Start decode test",
+    "categories": {
+      "0": {
+        ".key": "systematics",
+        "title": "Systematics"
+      },
+      "1": {
+        ".key": "cyclics",
+        "title": "Cyclics"
+      },
+      "2": {
+        ".key": "nonbinary",
+        "title": "Not binary"
+      },
+      "3": {
+        ".key": "others",
+        "title": "Others"
+      }
+    }
+  },
+  "ua":{
+    "toHome":"На головну",
+		"showTheory":"Показати теорію",
+		"startEncodeTest":"Пройти тест кодування",
+		"startDecodeTest":"Пройти тест декодування",
+    "categories": {
+      "0": {
+        ".key": "systematics",
+        "title": "Систематичні"
+      },
+      "1": {
+        ".key": "cyclics",
+        "title": "Циклічні"
+      },
+      "2": {
+        ".key": "nonbinary",
+        "title": "Не двоїчні"
+      },
+      "3": {
+        ".key": "others",
+        "title": "Інші"
+      }
     }
   }
+
 }

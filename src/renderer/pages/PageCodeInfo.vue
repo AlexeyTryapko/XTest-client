@@ -2,10 +2,10 @@
 <div class="main">
   <div class="asside-block">
     <div class="top-btn">
-      <md-button class="md-raised md-primary" @click="showDialog = true">Показати теорію</md-button>
-      <md-button class="md-raised md-primary" @click="loadEncodeData">Пройти тест на кодування</md-button>
-      <md-button class="md-raised md-primary" >Пройти тест декодування</md-button>
-      <md-button class="md-raised md-primary" href="/">На головну</md-button>
+      <md-button class="md-raised md-primary" @click="showDialog = true">{{ showTheory }}</md-button>
+      <md-button class="md-raised md-primary" @click="loadEncodeData">{{ startEncodeTest }}</md-button>
+      <md-button class="md-raised md-primary" >{{ startDecodeTest }}</md-button>
+      <md-button class="md-raised md-primary" href="/">{{ toHome }}</md-button>
     </div>
   </div>
   <div class="theory" v-html="template" v-show="showDialog"></div>
@@ -15,6 +15,7 @@
 
 <script>
 import axios from 'axios'
+import sourceData from '../data'
 
 export default {
   props: {
@@ -27,7 +28,12 @@ export default {
     return {
       showDialog: true,
       template: '',
-      view: ''
+      view: '',
+      lang: '',
+      toHome: sourceData['ua'].toHome,
+      showTheory: sourceData['ua'].showTheory,
+      startEncodeTest: sourceData['ua'].startEncodeTest,
+      startDecodeTest: sourceData['ua'].startDecodeTest,
     }
   },
   created() {
@@ -53,8 +59,20 @@ export default {
         // handle error
         console.log(error);
       });
+      axios.get('http://localhost:9090/getlang')
+        .then(response => {
+          this.lang = response.data.language;
+          this.toHome = sourceData[response.data.language].toHome;
+          this.showTheory = sourceData[response.data.language].showTheory;
+          this.startEncodeTest = sourceData[response.data.language].startEncodeTest;
+          this.startDecodeTest = sourceData[response.data.language].startDecodeTest;
+          console.log(response);
+        })
+        .catch(error => {
+          // handle error
+          console.log(error);
+        });
   },
-
   methods: {
     loadEncodeData() {
       this.showDialog = false
