@@ -1,7 +1,9 @@
 <template>
 <div>
-  <md-button class="md-primary md-raised home-btn" href="/" style="background-color: white; border-radius: 5px;">
-    <p style="color: black;">На головну</p>
+  <md-button class="md-primary md-raised home-btn" style="background-color: white; border-radius: 5px;">
+    <router-link to="/">
+     <p style="color: black">{{ toHome }}</p>
+    </router-link>
   </md-button>
   <header class="md-layout md-alignment-top-center">
     <h3 class="md-display-4">{{category.title}}</h3>
@@ -38,10 +40,24 @@ export default {
       .catch(error => {
         console.log(error);
       });
+      axios.get('http://localhost:9090/getlang')
+        .then(response => {
+          this.category = Object.values(sourceData[response.data.language].categories)
+            .filter(category => category['.key'] === this.id)[0];
+          this.lang = response.data.language;
+          this.toHome = sourceData[response.data.language].toHome;
+          console.log(response);
+        })
+        .catch(error => {
+          // handle error
+          console.log(error);
+        });
   },
   data() {
     return {
-      category: Object.values(sourceData.categories)
+      toHome: sourceData["ua"].toHome,
+      lang: "ua",
+      category: Object.values(sourceData["ua"].categories)
         .filter(category => category['.key'] === this.id)[0],
       codes: []
     }
@@ -51,4 +67,3 @@ export default {
 
 <style>
 </style>
-

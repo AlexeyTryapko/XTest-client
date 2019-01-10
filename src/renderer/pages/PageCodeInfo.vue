@@ -28,11 +28,12 @@
         <md-button class="check-btn" @click="loadEncodeAnswer" style="margin-left: 8px;">Показати відповідь</md-button>
       </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
+import sourceData from '../data'
 
 export default {
   props: {
@@ -51,7 +52,12 @@ export default {
       decodeView: '',
       message: '',
       result: '',
-      resultCode: ''
+      resultCode: '',
+      lang: '',
+      toHome: sourceData['ua'].toHome,
+      showTheory: sourceData['ua'].showTheory,
+      startEncodeTest: sourceData['ua'].startEncodeTest,
+      startDecodeTest: sourceData['ua'].startDecodeTest,
     }
   },
   created() {
@@ -66,6 +72,19 @@ export default {
         // handle error
         console.log(error);
       });
+      axios.get('http://localhost:9090/getlang')
+        .then(response => {
+          this.lang = response.data.language;
+          this.toHome = sourceData[response.data.language].toHome;
+          this.showTheory = sourceData[response.data.language].showTheory;
+          this.startEncodeTest = sourceData[response.data.language].startEncodeTest;
+          this.startDecodeTest = sourceData[response.data.language].startDecodeTest;
+          console.log(response);
+        })
+        .catch(error => {
+          // handle error
+          console.log(error);
+        });
     // axios.post('http://127.0.0.1:9090/encodedata', {
     //     module_name: this.id
     //   })
@@ -117,17 +136,17 @@ export default {
     },
     loadEncodeAnswer() {
       axios.post('http://127.0.0.1:9090/encodeanswer', {
-        data: this.message
-      })
-      .then(response => {
-        this.view = response.data.view;
-        this.message = response.data.data
-        console.log(response);
-      })
-      .catch(error => {
-        // handle error
-        console.log(error);
-      });
+          data: this.message
+        })
+        .then(response => {
+          this.view = response.data.view;
+          this.message = response.data.data
+          console.log(response);
+        })
+        .catch(error => {
+          // handle error
+          console.log(error);
+        });
       this.encodeTests = false
       this.decodeTests = true
     },
@@ -153,54 +172,54 @@ export default {
       let answers = document.getElementsByName("answer");
 
       if (answers.length === 1)
-          answersRequest = answers[0].value;
+        answersRequest = answers[0].value;
       else {
-          answersRequest = new Array();
-          for (var answer of answers) {
-              answersRequest.push(answer.value)
-          }
+        answersRequest = new Array();
+        for (var answer of answers) {
+          answersRequest.push(answer.value)
+        }
       }
 
       axios.post('http://127.0.0.1:9090/encoderesult', {
-        module_name: this.id,
-        data: this.message,
-        answer: answersRequest
-      })
-      .then(response => {
-        this.resultCode = response.data.result;
-        console.log(response);
-      })
-      .catch(error => {
-        // handle error
-        console.log(error);
-      });
+          module_name: this.id,
+          data: this.message,
+          answer: answersRequest
+        })
+        .then(response => {
+          this.resultCode = response.data.result;
+          console.log(response);
+        })
+        .catch(error => {
+          // handle error
+          console.log(error);
+        });
     },
     CheckDecode() {
       var DecodeanswersRequest = null;
       let decodeanswers = document.getElementsByName("answer");
 
       if (decodeanswers.length === 1)
-          DecodeanswersRequest = decodeanswers[0].value;
+        DecodeanswersRequest = decodeanswers[0].value;
       else {
-          DecodeanswersRequest = new Array();
-          for (var decodeanswer of decodeanswers) {
-              DecodeanswersRequest.push(decodeanswer.value)
-          }
+        DecodeanswersRequest = new Array();
+        for (var decodeanswer of decodeanswers) {
+          DecodeanswersRequest.push(decodeanswer.value)
+        }
       }
 
       axios.post('http://127.0.0.1:9090/decoderesult', {
-        module_name: this.id,
-        data: this.message,
-        answer: DecodeanswersRequest
-      })
-      .then(response => {
-        this.resultCode = response.data.result;
-        console.log(response);
-      })
-      .catch(error => {
-        // handle error
-        console.log(error);
-      });
+          module_name: this.id,
+          data: this.message,
+          answer: DecodeanswersRequest
+        })
+        .then(response => {
+          this.resultCode = response.data.result;
+          console.log(response);
+        })
+        .catch(error => {
+          // handle error
+          console.log(error);
+        });
     }
   }
 }
@@ -212,29 +231,29 @@ export default {
     flex-direction: row;
     position: relative;
 }
-.top-btn{
-  display: flex;
-  flex-direction: column;
-  width: px;
+.top-btn {
+    display: flex;
+    flex-direction: column;
+    width: px;
 }
-.bottom-btn{
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: fixed;
-  bottom: 0;
+.bottom-btn {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
 }
-.check-btn{
-  width: 350px;
+.check-btn {
+    width: 350px;
 }
-.form-btn{
-  display: flex;
+.form-btn {
+    display: flex;
 }
-.encode{
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
+.encode {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 .theory {
     padding: 10px;
