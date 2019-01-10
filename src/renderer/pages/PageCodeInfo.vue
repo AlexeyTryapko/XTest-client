@@ -8,8 +8,13 @@
       <md-button class="md-raised md-primary" href="/">На головну</md-button>
     </div>
   </div>
-  <div class="theory" v-html="template" v-show="showDialog"></div>
-  <div v-html="view" class="encode" v-show="!showDialog"></div>
+    <div class="theory" v-html="template" v-show="showDialog"></div>
+    <div class="encode" v-show="!showDialog">
+      <p v-if="resultCode === true" style="color: green; margin: 0 auto; font-size: 20px">Завдання виконано вірно!</p>
+      <p v-if="resultCode === false" style="color: red; margin: 0 auto; font-size: 20px">Завдання виконано не вірно!</p>
+      <div v-html="view"></div>
+      <md-button class="check-btn" @click="CheckEncode">Перевірити!</md-button>
+    </div>
 </div>
 </template>
 
@@ -27,7 +32,10 @@ export default {
     return {
       showDialog: true,
       template: '',
-      view: ''
+      view: '',
+      message: '',
+      result: '',
+      resultCode: ''
     }
   },
   created() {
@@ -47,6 +55,7 @@ export default {
       })
       .then(response => {
         this.view = response.data.view;
+        this.message = response.data.data
         console.log(response);
       })
       .catch(error => {
@@ -57,7 +66,46 @@ export default {
 
   methods: {
     loadEncodeData() {
+      axios.post('http://127.0.0.1:9090/encodedata', {
+        module_name: this.id
+      })
+      .then(response => {
+        this.view = response.data.view;
+        this.message = response.data.data
+        console.log(response);
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
       this.showDialog = false
+    },
+    CheckEncode() {
+      var answersRequest = null;
+      let answers = document.getElementsByName("answer");
+
+      if (answers.length === 1)
+          answersRequest = answers[0].value;
+      else {
+          answersRequest = new Array();
+          for (var answer of answers) {
+              answersRequest.push(answer.value)
+          }
+      }
+
+      axios.post('http://127.0.0.1:9090/encoderesult', {
+        module_name: this.id,
+        data: this.message,
+        answer: answersRequest
+      })
+      .then(response => {
+        this.resultCode = response.data.result;
+        console.log(response);
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
     }
   }
 }
@@ -84,8 +132,8 @@ export default {
 }
 .encode{
   margin: 0 auto;
-  border: 1px solid black;
-  height: auto;
+  display: flex;
+  flex-direction: column;
 }
 .theory {
     padding: 10px;
