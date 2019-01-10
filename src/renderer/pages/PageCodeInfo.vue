@@ -5,11 +5,12 @@
       <md-button class="md-raised md-primary" @click="SwitchTest">Показати теорію</md-button>
       <md-button class="md-raised md-primary" @click="loadEncodeData" style="margin-left: 8px;">Пройти навчання на кодування</md-button>
       <md-button class="md-raised md-primary" @click="loadDecodeData" style="margin-left: 8px;">Пройти навчання декодування</md-button>
+      <md-button class="md-raised md-primary" @click="loadDecodeData" style="margin-left: 8px;">Пройти іспит</md-button>
       <md-button class="md-raised md-primary" href="/" style="margin-left: 8px;">На головну</md-button>
     </div>
   </div>
-    <div class="theory" v-html="template" v-show="encodeTests && decodeTests"></div>
-    <div class="encode" v-show="!encodeTests && decodeTests">
+    <div class="theory" v-html="template" v-show="teoryData"></div>
+    <div class="encode" v-show="encodeTests">
       <p v-if="resultCode === true" style="color: green; margin: 0 auto; font-size: 20px">Завдання виконано вірно!</p>
       <p v-if="resultCode === false" style="color: red; margin: 0 auto; font-size: 20px">Завдання виконано не вірно!</p>
       <div v-html="view"></div>
@@ -18,7 +19,7 @@
         <md-button class="check-btn" @click="loadEncodeAnswer" style="margin-left: 8px;">Показати відповідь</md-button>
       </div>
     </div>
-    <div class="encode" v-show="!decodeTests && encodeTests">
+    <div class="encode" v-show="decodeTests">
       <p v-if="resultCode === true" style="color: green; margin: 0 auto; font-size: 20px">Завдання виконано вірно!</p>
       <p v-if="resultCode === false" style="color: red; margin: 0 auto; font-size: 20px">Завдання виконано не вірно!</p>
       <div v-html="decodeView"></div>
@@ -42,9 +43,9 @@ export default {
   },
   data() {
     return {
-      showDialog: true,
-      decodeTests: true,
-      encodeTests: true,
+      teoryData: true,
+      decodeTests: false,
+      encodeTests: false,
       template: '',
       view: '',
       decodeView: '',
@@ -93,8 +94,9 @@ export default {
 
   methods: {
     SwitchTest() {
-      this.decodeTests = true,
-      this.encodeTests = true
+      this.decodeTests = false,
+      this.encodeTests = false,
+      this.teoryData = true
     },
     loadEncodeData() {
       axios.post('http://127.0.0.1:9090/encodedata', {
@@ -109,8 +111,9 @@ export default {
         // handle error
         console.log(error);
       });
-      this.encodeTests = false
-      this.decodeTests = true
+      this.encodeTests = true
+      this.teoryData = false
+      this.decodeTests = false
     },
     loadEncodeAnswer() {
       axios.post('http://127.0.0.1:9090/encodeanswer', {
@@ -141,8 +144,9 @@ export default {
         // handle error
         console.log(error);
       });
-      this.decodeTests = false
-      this.encodeTests = true
+      this.encodeTests = false
+      this.teoryData = false
+      this.decodeTests = true
     },
     CheckEncode() {
       var answersRequest = null;
