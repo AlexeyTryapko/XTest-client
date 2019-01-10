@@ -2,9 +2,9 @@
 <div class="main">
   <div class="asside-block">
     <div class="top-btn">
-      <md-button class="md-raised md-primary" @click="SwitchTest">Показати теорію</md-button>
-      <md-button class="md-raised md-primary" @click="loadEncodeData" style="margin-left: 8px;">Пройти навчання на кодування</md-button>
-      <md-button class="md-raised md-primary" @click="loadDecodeData" style="margin-left: 8px;">Пройти навчання декодування</md-button>
+      <md-button class="md-raised md-primary" @click="SwitchTest">{{showTheory}}</md-button>
+      <md-button class="md-raised md-primary" @click="loadEncodeData" style="margin-left: 8px;">{{startEncodeTest}}</md-button>
+      <md-button class="md-raised md-primary" @click="loadDecodeData" style="margin-left: 8px;">{{startDecodeTest}}</md-button>
       <md-button class="md-raised md-primary" @click="loadDecodeData" style="margin-left: 8px;">Пройти іспит</md-button>
       <md-button class="md-raised md-primary" href="/" style="margin-left: 8px;">На головну</md-button>
     </div>
@@ -14,7 +14,7 @@
       <p v-if="resultCode === true" style="color: green; margin: 0 auto; font-size: 20px">Завдання виконано вірно!</p>
       <p v-if="resultCode === false" style="color: red; margin: 0 auto; font-size: 20px">Завдання виконано не вірно!</p>
       <div v-html="view"></div>
-      <div class="form-btn"> 
+      <div class="form-btn">
         <md-button class="check-btn" @click="CheckEncode">Перевірити!</md-button>
         <md-button class="check-btn" @click="loadEncodeAnswer" style="margin-left: 8px;">Показати відповідь</md-button>
       </div>
@@ -23,7 +23,7 @@
       <p v-if="resultCode === true" style="color: green; margin: 0 auto; font-size: 20px">Завдання виконано вірно!</p>
       <p v-if="resultCode === false" style="color: red; margin: 0 auto; font-size: 20px">Завдання виконано не вірно!</p>
       <div v-html="decodeView"></div>
-      <div class="form-btn"> 
+      <div class="form-btn">
         <md-button class="check-btn" @click="CheckDecode">Перевірити!</md-button>
         <md-button class="check-btn" @click="loadEncodeAnswer" style="margin-left: 8px;">Показати відповідь</md-button>
       </div>
