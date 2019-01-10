@@ -1,19 +1,20 @@
 <template>
 <div class="main">
-  <div class="footer">
+  <div class="asside-block">
     <div class="top-btn">
       <md-button class="md-raised md-primary" @click="loadEncodeData">Пройти тест на кодування</md-button>
-      <md-button class="md-raised md-primary" @click="showDialog = true">Пройти тест декодування</md-button>
+      <md-button class="md-raised md-primary" @click="showDialog = true" style="margin-left: 8px">Пройти тест декодування</md-button>
     </div>
-    <md-button class="md-raised md-primary bottom-btn" href="/">
-      <p>На головну</p>
-    </md-button>
+    <div class="bottom-btn">
+      <md-button class="md-raised md-primary" href="/">
+        <p>На головну</p>
+      </md-button>
+    </div>
   </div>
   <div class="theory" v-html="template">
 
   </div>
-
-
+  <div v-html="view"></div>
 </div>
 </template>
 
@@ -31,6 +32,7 @@ export default {
     return {
       showDialog: false,
       template: '',
+      view: ''
     }
   },
   created() {
@@ -73,51 +75,59 @@ export default {
     position: relative;
 }
 .top-btn{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: sticky;
   width: 250px;
   top: 0;
 }
 .bottom-btn{
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: fixed;
-  bottom: 0;
+  bottom: 10px;
 }
-.theory {
-    padding: 10px;
-    width: 90%;
-}
-.matrix-bottom-text-area {
-    width: 500px;
-}
-.md-dialog-actions {
-    display: flex;
-    justify-content: space-around;
-}
-.md-dialog {
-    width: 500px;
-    max-width: 768px;
-}
-.header {
-    text-align: center;
-    font-size: 23px;
-}
-.header-code {
-    text-align: center;
-}
-.footer {
+.asside-block {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: top;
     padding: 10px;
 }
 .md-button {
     border: 1px solid black;
     color: black;
 }
-.md-content {
-    width: 200px;
-    height: 200px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+.theory {
+    padding: 10px;
+    width: 90%;
 }
+// .matrix-bottom-text-area {
+//     width: 500px;
+// }
+// .md-dialog-actions {
+//     display: flex;
+//     justify-content: space-around;
+// }
+// .md-dialog {
+//     width: 500px;
+//     max-width: 768px;
+// }
+// .header {
+//     text-align: center;
+//     font-size: 23px;
+// }
+// .header-code {
+//     text-align: center;
+// }
+// .md-content {
+//     width: 200px;
+//     height: 200px;
+//     display: inline-flex;
+//     justify-content: center;
+//     align-items: center;
+// }
 </style>
