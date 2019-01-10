@@ -3,15 +3,18 @@
   <div class="theory" v-html="template">
 
   </div>
+  <div>
+    <md-dialog :md-active.sync="showDialog">
+        <div v-html="view"></div>
+      <md-dialog-actions>
+        <md-button class="md-primary" @click="showDialog = false">Далі</md-button>
+        <md-button class="md-primary" @click="showDialog = false">Вийти</md-button>
+      </md-dialog-actions>
+    </md-dialog>
+  </div>
   <div class="footer-btn">
-    <md-button class="md-raised md-primary">
-      <router-link :to="{ name: 'EncodePage', params: { id: id } }">
-        <p style="color: black">Пройти тест кодування</p>
-      </router-link>
-    </md-button>
-    <md-button class="md-raised md-primary">
-      <p>Пройти тест декодування</p>
-    </md-button>
+    <md-button class="md-raised md-primary" @click="loadEncodeData">Пройти тест на кодування</md-button>
+    <md-button class="md-raised md-primary" @click="showDialog = true">Пройти тест декодування</md-button>
     <md-button class="md-big md-raised md-primary" href="/">
       <p>На головну</p>
     </md-button>
@@ -31,7 +34,9 @@ export default {
   },
   data() {
     return {
-      template: ''
+      showDialog: false,
+      template: '',
+      view: ''
     }
   },
   created() {
@@ -47,10 +52,41 @@ export default {
         console.log(error);
       });
   },
+
+  methods: {
+    loadEncodeData() {
+      axios.post('http://127.0.0.1:9090/encodedata', {
+      module_name: this.id
+    })
+      .then(response => {
+      this.view = response.data.view;
+      console.log(response);
+    })
+    .catch(error => {
+      // handle error
+      console.log(error);
+    });
+    this.showDialog = true
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+.theory{
+  text-align: center;
+}
+.matrix-bottom-text-area{
+  width: 500px;
+}
+.md-dialog-actions{
+  display: flex;
+  justify-content: space-around;
+}
+.md-dialog {
+    width: 500px;
+    max-width: 768px;
+  }
 .header {
     text-align: center;
     font-size: 23px;
@@ -61,9 +97,9 @@ export default {
 .footer-btn {
     text-align: center;
 }
-.md-button {
-    background-color: aqua;
-    color: black;
+.md-button {  
+  border: 1px solid black;
+  color: black;
 }
 .md-content {
     width: 200px;

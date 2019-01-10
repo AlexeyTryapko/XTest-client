@@ -47,4 +47,10 @@ export default {
 </script>
 
 <style lang="css">
+.theory{
+  border: 1px solid black;
+} 
+.task{
+  text-align: center;
+}
 </style>

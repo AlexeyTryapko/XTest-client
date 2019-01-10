@@ -3,12 +3,13 @@ import axios from 'axios'
 
 import App from './App'
 import router from './router'
-import { MdButton, MdContent, MdTabs } from 'vue-material/dist/components'
+import { MdButton, MdContent, MdTabs, MdDialog } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
 
 Vue.use(MdButton)
 Vue.use(MdContent)
 Vue.use(MdTabs)
+Vue.use(MdDialog)
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
