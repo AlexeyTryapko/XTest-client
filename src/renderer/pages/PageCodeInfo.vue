@@ -3,21 +3,12 @@
   <div class="theory" v-html="template">
 
   </div>
-  <div>
-    <md-dialog :md-active.sync="showDialog">
-        <div v-html="view"></div>
-      <md-dialog-actions>
-        <md-button class="md-primary" @click="showDialog = false">Далі</md-button>
-        <md-button class="md-primary" @click="showDialog = false">Вийти</md-button>
-      </md-dialog-actions>
-    </md-dialog>
-  </div>
-  <div class="footer-btn">
+
+  <div v-html="view"></div>
+  <div class="footer">
     <md-button class="md-raised md-primary" @click="loadEncodeData">Пройти тест на кодування</md-button>
     <md-button class="md-raised md-primary" @click="showDialog = true">Пройти тест декодування</md-button>
-    <md-button class="md-big md-raised md-primary" href="/">
-      <p>На головну</p>
-    </md-button>
+    <md-button class="md-big md-raised md-primary" href="/"><p>На головну</p></md-button>
   </div>
 </div>
 </template>
@@ -94,8 +85,8 @@ export default {
 .header-code {
     text-align: center;
 }
-.footer-btn {
-    text-align: center;
+.footer {
+  text-align: center;
 }
 .md-button {  
   border: 1px solid black;

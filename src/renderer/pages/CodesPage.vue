@@ -1,7 +1,7 @@
 <template>
 <div>
-  <md-button class="md-primary md-raised" href="/">
-    <p style="color: black">На головну</p>
+  <md-button class="md-primary md-raised home-btn" href="/" style="background-color: white; border-radius: 5px;">
+    <p style="color: black;">На головну</p>
   </md-button>
   <header class="md-layout md-alignment-top-center">
     <h3 class="md-display-4">{{category.title}}</h3>
@@ -48,3 +48,7 @@ export default {
   },
 }
 </script>
+
+<style>
+</style>
+
