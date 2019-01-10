@@ -65,7 +65,7 @@ export default {
 
 <style lang="scss" scoped>
 .theory{
-  text-align: center;
+  
 }
 .matrix-bottom-text-area{
   width: 500px;
