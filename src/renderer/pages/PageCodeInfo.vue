@@ -5,7 +5,7 @@
       <md-button class="md-raised md-primary" @click="SwitchTest">Показати теорію</md-button>
       <md-button class="md-raised md-primary" @click="loadEncodeData" style="margin-left: 8px;">Пройти навчання на кодування</md-button>
       <md-button class="md-raised md-primary" @click="loadDecodeData" style="margin-left: 8px;">Пройти навчання декодування</md-button>
-      <md-button class="md-raised md-primary" @click="loadDecodeData" style="margin-left: 8px;">Пройти іспит</md-button>
+      <md-button class="md-raised md-primary" @click="loadExamData" style="margin-left: 8px;">Пройти іспит</md-button>
       <md-button class="md-raised md-primary" href="/" style="margin-left: 8px;">На головну</md-button>
     </div>
   </div>
@@ -28,6 +28,13 @@
         <md-button class="check-btn" @click="loadEncodeAnswer" style="margin-left: 8px;">Показати відповідь</md-button>
       </div>
     </div>
+    <div v-show="ExamData" class="encode">
+      <div class="exam-form">
+        <md-button v-for="exam in examTask" :key="exam" class="asnwer"></md-button>
+      </div>
+      <div v-html="exam"></div>
+      <md-button @click="checkExam">Далі</md-button>
+    </div>
   </div>
 </template>
 
@@ -44,15 +51,18 @@ export default {
   },
   data() {
     return {
+      ExamData: false,
       teoryData: true,
       decodeTests: false,
       encodeTests: false,
       template: '',
+      exam: '',
       view: '',
       decodeView: '',
       message: '',
       result: '',
       resultCode: '',
+      examTask: '',
       lang: '',
       toHome: sourceData['ua'].toHome,
       showTheory: sourceData['ua'].showTheory,
@@ -66,6 +76,7 @@ export default {
       })
       .then(response => {
         this.template = response.data.description;
+        this.examTask = response.data.details.exam_tasks
         console.log(response);
       })
       .catch(error => {
@@ -116,6 +127,28 @@ export default {
       this.decodeTests = false,
       this.encodeTests = false,
       this.teoryData = true
+    },
+    loadExamData() {
+      axios.post('http://127.0.0.1:9090/encodedata', {
+        module_name: this.id
+      })
+      .then(response => {
+        this.exam = response.data.view;
+        this.message = response.data.data
+        console.log(response);
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
+      this.ExamData = true
+      this.encodeTests = false
+      this.teoryData = false
+      this.decodeTests = false
+    },
+    checkExam() {
+      this.CheckEncode()
+      this.loadExamData()
     },
     loadEncodeData() {
       axios.post('http://127.0.0.1:9090/encodedata', {
@@ -226,6 +259,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.asnwer{
+}
+.exam-form{
+  display: flex;
+  margin: 10px;
+}
 .main {
     display: flex;
     flex-direction: row;
