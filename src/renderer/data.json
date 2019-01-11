@@ -4,6 +4,12 @@
 		"showTheory": "Show theory",
 		"startEncodeTest":"Start encode test",
 		"startDecodeTest":"Start decode test",
+    "startExam":"Start exam",
+    "correctTask":"Task done right",
+    "uncorrectTask":"task is done incorrectly",
+    "check":"Check task!",
+    "showAnswer":"Show answer",
+
     "categories": {
       "0": {
         ".key": "systematics",
@@ -28,6 +34,11 @@
 		"showTheory":"Показати теорію",
 		"startEncodeTest":"Пройти тест кодування",
 		"startDecodeTest":"Пройти тест декодування",
+		"startExam":"Пройти екзамен",
+    "correctTask":"Завдання виконане вірно",
+    "uncorrectTask":"Завдання виконане не вірно",
+    "check":"Перевірити завдання!",
+    "showAnswer":"Показати відповідь",
     "categories": {
       "0": {
         ".key": "systematics",
