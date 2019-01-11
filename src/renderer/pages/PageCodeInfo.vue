@@ -5,27 +5,27 @@
       <md-button class="md-raised md-primary" @click="SwitchTest">{{showTheory}}</md-button>
       <md-button class="md-raised md-primary" @click="loadEncodeData" style="margin-left: 8px;">{{startEncodeTest}}</md-button>
       <md-button class="md-raised md-primary" @click="loadDecodeData" style="margin-left: 8px;">{{startDecodeTest}}</md-button>
-      <md-button class="md-raised md-primary" @click="loadDecodeData" style="margin-left: 8px;">Пройти іспит</md-button>
-      <md-button class="md-raised md-primary" href="/" style="margin-left: 8px;">На головну</md-button>
+      <md-button class="md-raised md-primary" @click="loadDecodeData" style="margin-left: 8px;">{{startExam}}</md-button>
+      <md-button class="md-raised md-primary" href="/" style="margin-left: 8px;">{{toHome}}</md-button>
     </div>
   </div>
     <div class="theory" v-html="template" v-show="teoryData"></div>
     <div class="encode" v-show="encodeTests">
-      <p v-if="resultCode === true" style="color: green; margin: 0 auto; font-size: 20px">Завдання виконано вірно!</p>
-      <p v-if="resultCode === false" style="color: red; margin: 0 auto; font-size: 20px">Завдання виконано не вірно!</p>
+      <p v-if="resultCode === true" style="color: green; margin: 0 auto; font-size: 20px">{{correctTask}}</p>
+      <p v-if="resultCode === false" style="color: red; margin: 0 auto; font-size: 20px">{{uncorrectTask}}</p>
       <div v-html="view"></div>
       <div class="form-btn">
-        <md-button class="check-btn" @click="CheckEncode">Перевірити!</md-button>
-        <md-button class="check-btn" @click="loadEncodeAnswer" style="margin-left: 8px;">Показати відповідь</md-button>
+        <md-button class="check-btn" @click="CheckEncode">{{check}}</md-button>
+        <md-button class="check-btn" @click="loadEncodeAnswer" style="margin-left: 8px;">{{showAnswer}}</md-button>
       </div>
     </div>
     <div class="encode" v-show="decodeTests">
-      <p v-if="resultCode === true" style="color: green; margin: 0 auto; font-size: 20px">Завдання виконано вірно!</p>
-      <p v-if="resultCode === false" style="color: red; margin: 0 auto; font-size: 20px">Завдання виконано не вірно!</p>
+      <p v-if="resultCode === true" style="color: green; margin: 0 auto; font-size: 20px">{{correctTask}}</p>
+      <p v-if="resultCode === false" style="color: red; margin: 0 auto; font-size: 20px">{{uncorrectTask}}</p>
       <div v-html="decodeView"></div>
       <div class="form-btn">
-        <md-button class="check-btn" @click="CheckDecode">Перевірити!</md-button>
-        <md-button class="check-btn" @click="loadEncodeAnswer" style="margin-left: 8px;">Показати відповідь</md-button>
+        <md-button class="check-btn" @click="CheckDecode">{{check}}</md-button>
+        <md-button class="check-btn" @click="loadEncodeAnswer" style="margin-left: 8px;">{{showAnswer}}</md-button>
       </div>
     </div>
   </div>
@@ -58,6 +58,11 @@ export default {
       showTheory: sourceData['ua'].showTheory,
       startEncodeTest: sourceData['ua'].startEncodeTest,
       startDecodeTest: sourceData['ua'].startDecodeTest,
+      startExam: sourceData['ua'].startExam,
+      correctTask: sourceData['ua'].correctTask,
+      uncorrectTask: sourceData['ua'].uncorrectTask,
+      showAnswer: sourceData['ua'].showAnswer,
+      check: sourceData['ua'].check,
     }
   },
   created() {
@@ -79,6 +84,11 @@ export default {
           this.showTheory = sourceData[response.data.language].showTheory;
           this.startEncodeTest = sourceData[response.data.language].startEncodeTest;
           this.startDecodeTest = sourceData[response.data.language].startDecodeTest;
+          this.startExam = sourceData[response.data.language].startExam;
+          this.correctTask = sourceData[response.data.language].correctTask;
+          this.uncorrectTask = sourceData[response.data.language].uncorrectTask;
+          this.showAnswer = sourceData[response.data.language].showAnswer;
+          this.check = sourceData[response.data.language].check;
           console.log(response);
         })
         .catch(error => {
